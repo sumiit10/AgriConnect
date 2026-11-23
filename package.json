@@ -1,0 +1,36 @@
+{
+  "name": "agriconnect-mern",
+  "version": "4.0.0",
+  "private": true,
+  "description": "AgriConnect agricultural equipment marketplace and rental platform (React, Express, MongoDB Atlas)",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "server:dev": "node --watch backend/server.js",
+    "client:dev": "npm --prefix client run dev",
+    "build": "npm --prefix client run build",
+    "dev": "concurrently -k \"npm:server:dev\" \"npm:client:dev\"",
+    "migrate:legacy": "node backend/scripts/migrate-json-to-atlas.js",
+    "seed": "node backend/scripts/seed.js",
+    "check": "node --check backend/server.js && node --check backend/controllers/authController.js && node --check backend/controllers/equipmentController.js && node --check backend/controllers/rentalController.js"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^2.5.1",
+    "connect-mongo": "^5.1.0",
+    "express": "^5.1.0",
+    "express-rate-limit": "^7.5.0",
+    "express-session": "^1.18.2",
+    "helmet": "^8.0.0",
+    "mongoose": "^8.9.5",
+    "multer": "^2.0.2",
+    "dotenv": "^16.4.7"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "nodemon": "^3.1.7"
+  }
+}
