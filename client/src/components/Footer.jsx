@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
+import { useLanguage } from '../context/LanguageContext.jsx';
 export default function Footer() {
+  const { language, t } = useLanguage();
   return <footer className="site-footer"><div className="container footer-grid">
-    <div><Link to="/" className="brand footer-brand">🌾 AgriConnect</Link><p>Helping farmers share resources and find the equipment they need.</p></div>
-    <div><strong>Explore</strong><Link to="/equipment">Browse equipment</Link><Link to="/register">Join the community</Link></div>
-    <div><strong>Account</strong><Link to="/login">Log in</Link><Link to="/rentals">My rentals</Link></div>
-  </div><div className="footer-bottom">© {new Date().getFullYear()} AgriConnect · Academic project</div></footer>;
+    <div><Link to="/" className="brand footer-brand">🌾 AgriConnect</Link><p>{language === 'mr' ? 'शेतकऱ्यांना संसाधने शेअर करण्यास आणि आवश्यक उपकरणे शोधण्यास मदत.' : 'Helping farmers share resources and find the equipment they need.'}</p></div>
+    <div><strong>{language === 'mr' ? 'एक्सप्लोर करा' : 'Explore'}</strong><Link to="/equipment">{t('browse')}</Link><Link to="/register">{language === 'mr' ? 'समुदायात सामील व्हा' : 'Join the community'}</Link></div>
+    <div><strong>{language === 'mr' ? 'खाते' : 'Account'}</strong><Link to="/login">{t('login')}</Link><Link to="/rentals">{t('myRentals')}</Link></div>
+  </div><div className="footer-bottom">© {new Date().getFullYear()} AgriConnect · {language === 'mr' ? 'शैक्षणिक प्रकल्प' : 'Academic project'}</div></footer>;
 }
