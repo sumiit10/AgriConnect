@@ -4,8 +4,10 @@ import EquipmentCard from '../components/EquipmentCard.jsx';
 import Loader from '../components/Loader.jsx';
 import Notice from '../components/Notice.jsx';
 import { api } from '../services/api.js';
+import { useAuth } from '../context/AuthContext.jsx';
 
 export default function EquipmentList() {
+  const { user } = useAuth();
   const [searchParams, setSearchParams] = useSearchParams();
   const [search, setSearch] = useState(searchParams.get('search') || '');
   const [category, setCategory] = useState(searchParams.get('category') || '');
@@ -35,7 +37,7 @@ export default function EquipmentList() {
   }
 
   return <section className="container page-section">
-    <div className="page-heading-row"><div><span className="eyebrow">Discover machinery near you</span><h1>Available equipment</h1><p>Search equipment shared by fellow farmers.</p></div><Link to="/owner/equipment/new" className="button button-primary">＋ List equipment</Link></div>
+    <div className="page-heading-row"><div><span className="eyebrow">Discover machinery near you</span><h1>Available equipment</h1><p>Search equipment shared by fellow farmers.</p></div>{user?.role === 'owner' && <Link to="/owner/equipment/new" className="button button-primary">＋ List equipment</Link>}</div>
     <div className="filter-panel">
       <div className="field search-field"><label htmlFor="equipment-search">Search equipment</label><input id="equipment-search" className="form-control" type="search" placeholder="Name, brand, owner or description..." value={search} onChange={e => setSearch(e.target.value)} /></div>
       <div className="field"><label htmlFor="equipment-category">Category</label><select id="equipment-category" className="form-control" value={category} onChange={e => setCategory(e.target.value)}><option value="">All categories</option>{['Tractor', 'Cultivator', 'Irrigation', 'Harvester', 'Sprayer', 'Other Tools'].map(x => <option key={x}>{x}</option>)}</select></div>
